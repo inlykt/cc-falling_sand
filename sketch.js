@@ -49,6 +49,11 @@ function mouseDragged() {
       }
     }
   }
+  //iterates sand color
+  hueValue += 0.5;
+  if (hueValue > 360) {
+    hueValue = 1
+  }
 }
 
 
@@ -119,10 +124,4 @@ function draw() {
     }
   }
   grid = nextGrid;
-  
-  //iterates sand color
-  hueValue += 1;
-  if (hueValue > 360) {
-    hueValue = 1
-  }
 }
