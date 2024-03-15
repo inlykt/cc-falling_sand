@@ -1,3 +1,27 @@
+// unclean global vars
+let grid;
+let w = 8;
+let cols, rows;
+hueValue = 1;
+
+
+// unclean setup: sets up
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  colorMode(HSB, 360, 255, 255)
+  cols = floor(width / w);
+  rows = floor(height / w);
+  grid = make2DArray(cols, rows)
+
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+      grid[i][j] = 0;
+    }
+  }
+}
+
+
+// unclean builds the 2d canvas
 function make2DArray(cols, rows) {
   let arr = new Array(cols);
   for (let i = 0; i < arr.length; i++) {
@@ -9,30 +33,8 @@ function make2DArray(cols, rows) {
   return arr;
 }
 
-let grid;
-let w = 8;
-let cols, rows;
 
-hueValue = 1;
-
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  colorMode(HSB, 360, 255, 255)
-  cols = floor(width / w);
-  rows = floor(height / w);
-  console.log(cols); //temp
-  console.log(rows); //temp
-  console.log(width); //temp
-  console.log(height); //temp
-  grid = make2DArray(cols, rows)
-
-  for (let i = 0; i < cols; i++) {
-    for (let j = 0; j < rows; j++) {
-      grid[i][j] = 0;
-    }
-  }
-}
-
+// unclean trigger
 function mouseDragged() {
   let mouseCol = floor(mouseX / w);
   let mouseRow = floor(mouseY / w);
@@ -52,6 +54,8 @@ function mouseDragged() {
   }
 }
 
+
+// unclean do
 function draw() {
   background(0);
   
