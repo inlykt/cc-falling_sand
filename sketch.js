@@ -29,7 +29,7 @@ function make2DArray(cols, rows) {
 }
 
 
-// unclean trigger
+// triggered on mouse dragged; creates the static sand
 function mouseDragged() {
   let mouseCol = floor(mouseX / w);
   let mouseRow = floor(mouseY / w);
@@ -41,12 +41,24 @@ function mouseDragged() {
       if (random(1) < 0.4) {
         let col = mouseCol + i;
         let row = mouseRow + j;
-        if (col >= 0 && col <= cols - 1 && row >= 0 && row <= rows -1) {
+        if (withinCols(col) && withinRows(row)) {
           grid[col][row] = hueValue;
         }
       }
     }
   }
+}
+
+
+// checks if the supplied column is within the canvas 
+function withinCols(i) {
+  return i >= 0 && i <= cols - 1;
+}
+
+
+// checks if the supplied column is within the canvas 
+function withinRows(j) {
+  return j >= 0 && j <= rows -1
 }
 
 
@@ -76,10 +88,11 @@ function draw() {
         let dir = random([-1, 1])
 
         let belowA, belowB
-        if (i + dir >= 0 && i + dir <= cols - 1){
+
+        if (withinCols(i + dir)){
           belowA = grid[i + dir][j + 1]
         }
-        if (i - dir >= 0 && i - dir <= cols - 1){
+        if (withinCols(i - dir)){
           belowB = grid[i - dir][j + 1]
         }
 
