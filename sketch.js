@@ -1,4 +1,4 @@
-// unclean global vars
+// defines global vars
 let grid;
 let w = 8;
 let cols, rows;
@@ -6,7 +6,7 @@ let backgroundColor = 'white';
 let hueValue = 1;
 
 
-// unclean setup: sets up
+// setup
 function setup() {
   createCanvas(windowWidth, windowHeight);
   colorMode(HSB, 360, 255, 255)
@@ -16,7 +16,7 @@ function setup() {
 }
 
 
-// unclean builds the 2d canvas
+// contructs the 2D grid
 function make2DArray(cols, rows) {
   let arr = new Array(cols);
   for (let i = 0; i < arr.length; i++) {
@@ -34,10 +34,12 @@ function mouseDragged() {
   let mouseCol = floor(mouseX / w);
   let mouseRow = floor(mouseY / w);
 
+  // creates an area of sand
   let matrix = 6;
   let extent = floor(matrix / 2);
   for (let i = -extent; i <= extent; i++) {
     for (let j = -extent; j <= extent; j++) {
+      // randomly decides if a grain should be drawn within the area
       if (random(1) < 0.4) {
         let col = mouseCol + i;
         let row = mouseRow + j;
@@ -62,10 +64,11 @@ function withinRows(j) {
 }
 
 
-// unclean do
+// simulates the sand falling
 function draw() {
   background(backgroundColor);
   
+  // defines the grains in the canvas
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       noStroke();
@@ -85,10 +88,13 @@ function draw() {
       if (state > 0) {
         let below = grid[i][j + 1];
         
+        // decides a random direction to send the sand in
         let dir = random([-1, 1])
 
-        let belowA, belowB
+        let belowA = -1
+        let belowB = -1
 
+        // if the left/right spot is within the grid, defines the location of belowA/B
         if (withinCols(i + dir)){
           belowA = grid[i + dir][j + 1]
         }
@@ -96,12 +102,16 @@ function draw() {
           belowB = grid[i - dir][j + 1]
         }
 
+        // directly below
         if (below === 0) {
           nextGrid[i][j + 1] = grid[i][j];
+        // below and to the left/right
         } else if (belowA === 0) {
           nextGrid[i + dir][j + 1] = grid[i][j];
+        // below and to the other direction
         } else if (belowB === 0) {
           nextGrid[i - dir][j + 1] = grid[i][j];
+        // if none of theabove is true, keep it the same
         } else {
           nextGrid[i][j] = grid[i][j];
         }
@@ -109,6 +119,8 @@ function draw() {
     }
   }
   grid = nextGrid;
+  
+  //iterates sand color
   hueValue += 1;
   if (hueValue > 360) {
     hueValue = 1
