@@ -2,7 +2,8 @@
 let grid;
 let w = 8;
 let cols, rows;
-hueValue = 1;
+let backgroundColor = 'white';
+let hueValue = 1;
 
 
 // unclean setup: sets up
@@ -12,12 +13,6 @@ function setup() {
   cols = floor(width / w);
   rows = floor(height / w);
   grid = make2DArray(cols, rows)
-
-  for (let i = 0; i < cols; i++) {
-    for (let j = 0; j < rows; j++) {
-      grid[i][j] = 0;
-    }
-  }
 }
 
 
@@ -57,7 +52,7 @@ function mouseDragged() {
 
 // unclean do
 function draw() {
-  background(0);
+  background(backgroundColor);
   
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
